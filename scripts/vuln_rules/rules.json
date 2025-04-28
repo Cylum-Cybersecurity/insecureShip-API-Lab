@@ -1,0 +1,74 @@
+[
+  {
+    "id": "V01",
+    "name": "Broken Access Control: user listing",
+    "regex": "User\\.find\\(",
+    "description": "Unrestricted access to user data without proper role validation"
+  },
+  {
+    "id": "V02",
+    "name": "Broken Access Control: user modification",
+    "regex": "User\\.findOneAndUpdate\\([\\s\\S]*?\\)",
+    "description": "User update without verifying identity of the requester"
+  },
+  {
+    "id": "V03",
+    "name": "Privilege Escalation",
+    "regex": "const\\s*\\{[^}]*role[^}]*\\}\\s*=\\s*req\\.body",
+    "description": "Role assignment without validating proper privileges"
+  },
+  {
+    "id": "V04",
+    "name": "Server-Side Request Forgery (SSRF)",
+    "regex": "(?![\\s\\S]*allowedHosts)[\\s\\S]*axios\\.get\\([^,]*,\\s*\\{[^}]*responseType:\\s*['\\\"]arraybuffer['\\\"]",
+    "description": "Request to external URL without domain validation"
+  },
+  {
+    "id": "V05",
+    "name": "Remote Code Execution (RCE)",
+    "regex": "exec\\([^)]*\\)",
+    "description": "Use of system command execution without restrictions"
+  },
+  {
+    "id": "V06",
+    "name": "Broken Access Control: package creation",
+    "regex": "^(?![\\s\\S]*req\\.user\\.role)[\\s\\S]*Package\\.(save|create|findOneAndUpdate)\\(\\)",
+    "description": "Package creation or modification without checking user role"
+  },
+  {
+    "id": "V07",
+    "name": "CORS Misconfiguration",
+    "regex": "app\\.use\\(cors\\(\\)\\)",
+    "description": "CORS policy allows any origin without restriction"
+  },
+  {
+    "id": "V08",
+    "name": "JWT Long Expiration",
+    "regex": "expiresIn:\\s*['\\\"]7d['\\\"]",
+    "description": "JWT issued with excessive expiration time"
+  },
+  {
+    "id": "V09",
+    "name": "JWT Hardcoded Secret",
+    "regex": "jwt\\.sign\\([\\s\\S]*?,\\s*SECRET",
+    "description": "JWT is signed with a hardcoded secret instead of environment variable"
+  },
+  {
+    "id": "V10",
+    "name": "Broken Access Control: unauthorized package update",
+    "regex": "Package\\.findOneAndUpdate\\(",
+    "description": "Package update operation without validating ownership or access rights"
+  },
+  {
+    "id": "V11",
+    "name": "ReDoS: vulnerable regex pattern",
+    "regex": "new\\s+RegExp\\s*\\(.*\\$\\{pattern.*\\}\\)\\+",
+    "description": "User-controlled pattern is grouped and repeated in a regex. May lead to ReDoS."
+  },
+  {
+    "id": "V12",
+    "name": "Missing Rate Limiting on Login",
+    "regex": "router\\.post\\(\\s*['\\\"]\\/login['\\\"]\\s*,\\s*async\\s*\\(",
+    "description": "Login endpoint is not protected with rate limiting middleware"
+  }  
+]

